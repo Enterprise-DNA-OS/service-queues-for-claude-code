@@ -1,23 +1,23 @@
 Waits needing attention
 npm run queue -- wait-review
-token  location                service            reason               minutes
+  token  location                service            reason               minutes
   -----  ----------------------  -----------------  -------------------  -------
-  H-107  Harbour Service Centre  Permit enquiries   WAIT_TARGET          1455.1 
-  H-107  Harbour Service Centre  Permit enquiries   PREVIOUS_DAY_OPEN    1455.1 
-  H-103  Harbour Service Centre  General enquiries  CALL_OPEN_OVER_HOUR  81.1   
-  H-101  Harbour Service Centre  General enquiries  WAIT_TARGET          37.1   
-  R-201  Ridge Service Centre    General enquiries  WAIT_TARGET          22.1
+  H-107  Harbour Service Centre  Permit enquiries   wait target          1455.0 
+  H-107  Harbour Service Centre  Permit enquiries   previous day open    1455.0 
+  H-103  Harbour Service Centre  General enquiries  call open over hour  81.0   
+  H-101  Harbour Service Centre  General enquiries  wait target          37.0   
+  R-201  Ridge Service Centre    General enquiries  wait target          22.0
 
 Clerk activity
 npm run queue -- clerk-review
-location                clerk       imported  served  calls_open  mean_served_minutes
+  location                clerk       imported  served  calls open  mean served minutes
   ----------------------  ----------  --------  ------  ----------  -------------------
   Harbour Service Centre  Leo Chen    false     1       0           15.0               
   Harbour Service Centre  Maya Patel  false     0       1
 
 Privacy review
 npm run queue -- compliance
-token  rule                finding                                     
+  token  rule                finding                                     
   -----  ------------------  --------------------------------------------
-  H-106  COLLECTION_PURPOSE  Record a necessary collection purpose       
-  H-106  RETENTION_REVIEW    Review the lawful need to retain this record
+  H-106  collection purpose  Record a necessary collection purpose       
+  H-106  retention review    Review the lawful need to retain this record

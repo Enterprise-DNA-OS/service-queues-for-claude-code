@@ -12,7 +12,7 @@ function print(value,label=''){
  if(label)console.log('\n'+label);
  if(Array.isArray(value)){
   if(value[0]?.question){for(const v of value)print(v.rows,v.question);return;}
-  console.log(value.length?table(value,Object.keys(value[0]).filter(k=>!['id','visit_id','service_id','clerk_id'].includes(k)).map(key=>({key,label:key,width:45}))):'  (none)');
+  console.log(value.length?table(value,Object.keys(value[0]).filter(k=>!['id','visit_id','service_id','clerk_id'].includes(k)).map(key=>({key,label:key.replaceAll('_',' '),width:45,format:v=>v instanceof Date?v.toISOString():typeof v==='string'&&/^[A-Z]+(_[A-Z]+)+$/.test(v)?v.toLowerCase().replaceAll('_',' '):v}))):'  (none)');
  }else if(value&&typeof value==='object'){for(const[k,v]of Object.entries(value)){if(Array.isArray(v)||typeof v==='object')print(v,k);else console.log(`${k}: ${v}`);}}
  else console.log(value);
 }
