@@ -1,5 +1,35 @@
-# Slash commands
+# Service queue commands
 
-One file per recurring job. Each command tells Claude Code exactly which CLI command to run and how to present the result, so the operator never re-explains the job.
-
-Add a command every time the same ask comes twice. Frontmatter needs a `description:` line. The body is the brief.
+- /locations: Read location collection purposes and retention settings.
+- /services: Read service lines and waiting targets.
+- /clerks: Read the local clerk register.
+- /queue-now: Read the current staff-operated queues.
+- /wait-review: Review late waits, long open calls and previous-day tickets.
+- /service-review: Review service results by UTC day, separating imported history.
+- /clerk-review: Read completed work and open calls without ranking staff.
+- /no-shows: Review visits recorded as no-show.
+- /handover: Read open work before the next desk shift.
+- /compliance: Check collection-purpose evidence and retention reviews.
+- /history: Read interaction history, including archived imports.
+- /audit: Read recorded actors and actions.
+- /imports: Read imported batches and row counts.
+- /ticket: Read a visit, every interaction and its recorded actions.
+- /insights: Answer the ten joined service and privacy questions.
+- /weekly-review: Write the Monday service review from current records.
+- /draft-handover: Draft the shift handover locally without sending.
+- /arrive: Record a visitor at a staffed counter.
+- /call: Record that a clerk called a visitor in person.
+- /serve: Record the end of a called service interaction.
+- /no-show: Record a called visitor who did not answer.
+- /remove: Close an open ticket without deleting its history.
+- /forward: Move a visitor to another service while retaining the earlier wait.
+- /return-to-queue: Return a called visitor to the queue as a new interaction.
+- /log: Record an internal operational note against an open visit.
+- /review-retention: Record a lawful purpose, review date and supporting reference.
+- /add-location: Add a desk location with its collection policy.
+- /add-service: Add a service and its internal wait target.
+- /add-clerk: Add a clerk at a location.
+- /import: Preview and import a Qminder Excel or CSV export.
+- /export: Write a complete structured export of the local database.
+- /customise: change fields and rules with a tested migration.
+- /new-view: add a read-only report.

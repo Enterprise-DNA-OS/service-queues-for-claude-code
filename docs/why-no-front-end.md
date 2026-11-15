@@ -1,24 +1,9 @@
-# Why there is no front end
+# A desk run through records
 
-Qminder is a database with a subscription. The tables underneath it are ordinary: a few entities, a few relationships, a handful of workflows you repeat every week. What you pay for is the layer on top that lets people who do not write SQL get at those tables. Screens, filters, dashboards, forms.
+A greeter can record an anonymous arrival, tell the visitor where to wait, call them in person and record the completed service. The commands preserve who recorded each action and the timestamps used for reports. There is no screen a visitor must use.
 
-That layer used to be the whole product, because talking to a database was hard. It is not hard any more. Open this folder in Claude Code, describe what you want, and it writes the query, runs it, and explains the answer. Ask a question the dashboard never had a chart for and you still get an answer.
+This suits a staffed counter and a manager reviewing service records. A touch kiosk, live wall display, remote sign-in, mobile self-service, appointments and SMS give visitors capabilities the free base does not provide. Static HTML is a dated report, not a live queue screen. Keep existing visitor-facing services until a custom version has the connections and controls you need.
 
-## What you gain
+A command marks that a person was called. It does not announce a name, text a phone, schedule a clerk or decide urgency. Staff remain responsible for the actual service. The software does not replace clinical triage or an emergency procedure.
 
-- **Better answers.** A dashboard shows what the vendor decided to chart. Here you ask your own question, in your own words, and get it answered against your own data.
-- **No seats.** Everyone who needs to look can look. The bill does not grow with headcount.
-- **Your data in your Postgres.** Plain tables. Back them up, query them from anything, leave any time. There is no export step because there is nothing to leave.
-- **A process that matches you.** When your way of working changes, you add a command. You do not wait for a feature request to clear.
-
-## What you give up
-
-- **A visual board.** Stages are a table you ask about, not cards you drag.
-- **A phone app.** It runs where Claude Code runs.
-- **A vendor help desk.** This is open source. Enterprise DNA supports the installed version for businesses that want someone to call.
-
-## Who this fits
-
-Small teams who already use Claude Code, or who would rather learn to ask than learn another interface. If your team needs a screen to look at all day, keep Qminder. If you need the answers more than the screens, this is cheaper, faster and yours.
-
-Installed and run for you: https://enterprisedna.co/omni/instead-of/qminder
+The read-only reports show the queue, performance and privacy reviews in your brand. Ask /new-view for a new report. Ask /customise to change fields or rules through a tested migration.

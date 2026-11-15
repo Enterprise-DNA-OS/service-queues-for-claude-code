@@ -1,0 +1,3 @@
+Taken,Status,Wait Time,Called,Service Ended,Service Time,Clerk,Line,Ticket ID
+2026-10-01 09:00:00,Served,10 min,2026-10-01 09:10:00,2026-10-01 09:20:00,10 min,Alex Demo,General enquiries,example-1
+2026-10-01 09:02:00,Waiting,,,,,,General enquiries,example-2

@@ -1,13 +1,61 @@
 [
   {
-    "name": "week",
-    "title": "This week",
-    "subtitle": "Service Queues for Claude Code: what needs attention, rendered by npm run view",
+    "name": "desk",
+    "title": "Service desk handover",
+    "subtitle": "Internal review. Demo records are fictional. Times are UTC.",
     "sections": [
       {
-        "title": "Needs attention",
-        "note": "TODO(author): point this at the industry's attention view (overdue, stuck, quiet).",
-        "sql": "select 'replace me' as item, 'TODO(author)' as why"
+        "title": "Open tickets",
+        "sql": "select token,location,service,clerk,status,wait_minutes from queue_now order by queued_at"
+      },
+      {
+        "title": "Open calls",
+        "sql": "select token,location,clerk,service_minutes from queue_now where status='called' order by service_minutes desc"
+      },
+      {
+        "title": "Attention",
+        "sql": "select * from attention order by minutes desc"
+      }
+    ]
+  },
+  {
+    "name": "performance",
+    "title": "Service performance",
+    "sections": [
+      {
+        "title": "Service outcomes by UTC arrival day",
+        "sql": "select service_date,location,service,imported,interactions,served,no_shows,removed from daily_performance order by service_date desc,location,service",
+        "columns": [
+          "service_date",
+          "location",
+          "service",
+          "imported",
+          "served",
+          "no_shows",
+          "removed"
+        ],
+        "note": "Imported snapshots are separate from live records. Counts describe interactions, not unique visitors."
+      },
+      {
+        "title": "Waiting and service duration",
+        "sql": "select service_date,location,service,imported,mean_wait_minutes,mean_service_minutes,over_target from daily_performance order by service_date desc,location,service",
+        "note": "Mean wait uses called interactions. Mean service uses ended interactions with a call time. Unknown imported durations are excluded."
+      },
+      {
+        "title": "Clerk activity",
+        "sql": "select * from clerk_performance order by location,clerk",
+        "note": "Service mix differs. These figures are not an employee ranking."
+      }
+    ]
+  },
+  {
+    "name": "privacy",
+    "title": "Privacy review desk",
+    "sections": [
+      {
+        "title": "Purpose and retention review",
+        "sql": "select * from compliance_findings order by token,rule",
+        "note": "These are evidence checks, not a legal certification. Retention is set by your organisation."
       }
     ]
   }

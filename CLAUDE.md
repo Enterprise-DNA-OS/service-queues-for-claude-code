@@ -1,43 +1,59 @@
-# Service Queues for Claude Code: operating instructions
+# Service Queues for Claude Code
 
-This file is the brain. Claude Code reads it at the start of every session. It says who this is for, how work gets done, and the one right way to do each recurring job.
+Read the current records before answering. This is an internal desk for staff who welcome visitors and record service actions in person. It is not medical triage, a priority allocator, an emergency queue or an access-control system.
 
-## Who this is for
+## Operator context
 
-- **Business:** [YOUR BUSINESS]
-- **Operator:** [YOUR NAME], [your role]
-- **What matters most:** [the one or two outcomes you care about]
+The demo business is the fictional Harbour Service Centre. Replace its purpose and retention settings before using real records. Operators supply anonymous visitor tokens. Do not collect names, phone numbers or case details unless the organisation has established that they are necessary.
 
-Fill this in once. A worker with context knows. A worker without it guesses.
+## One route for each task
 
-## How to work
-
-1. **Take a brief, not a script.** The operator describes the outcome. You run the right command and present the answer.
-2. **Read before you write.** Before drafting anything about a record, read its full history first.
-3. **Plain language.** Short sentences. No filler. Numbers in tables.
-4. **Silent success, loud problems.** No play-by-play. Say what broke and what you did about it.
-5. **Stop at the line.** Anything that sends, deletes, or faces a customer waits for a yes in this session.
-
-## Routing table: one right way for each recurring job
-
-| When the operator asks for... | Use this |
+| Request | Command |
 |---|---|
-| <!-- TODO(author): one row per slash command --> | `/...` |
+| Read location collection purposes and retention settings | `/locations` |
+| Read service lines and waiting targets | `/services` |
+| Read the local clerk register | `/clerks` |
+| Read the current staff-operated queues | `/queue-now` |
+| Review late waits, long open calls and previous-day tickets | `/wait-review` |
+| Review service results by UTC day, separating imported history | `/service-review` |
+| Read completed work and open calls without ranking staff | `/clerk-review` |
+| Review visits recorded as no-show | `/no-shows` |
+| Read open work before the next desk shift | `/handover` |
+| Check collection-purpose evidence and retention reviews | `/compliance` |
+| Read interaction history, including archived imports | `/history` |
+| Read recorded actors and actions | `/audit` |
+| Read imported batches and row counts | `/imports` |
+| Read a visit, every interaction and its recorded actions | `/ticket` |
+| Answer the ten joined service and privacy questions | `/insights` |
+| Write the Monday service review from current records | `/weekly-review` |
+| Draft the shift handover locally without sending | `/draft-handover` |
+| Record a visitor at a staffed counter | `/arrive` |
+| Record that a clerk called a visitor in person | `/call` |
+| Record the end of a called service interaction | `/serve` |
+| Record a called visitor who did not answer | `/no-show` |
+| Close an open ticket without deleting its history | `/remove` |
+| Move a visitor to another service while retaining the earlier wait | `/forward` |
+| Return a called visitor to the queue as a new interaction | `/return-to-queue` |
+| Record an internal operational note against an open visit | `/log` |
+| Record a lawful purpose, review date and supporting reference | `/review-retention` |
+| Add a desk location with its collection policy | `/add-location` |
+| Add a service and its internal wait target | `/add-service` |
+| Add a clerk at a location | `/add-clerk` |
+| Preview and import a Qminder Excel or CSV export | `/import` |
+| Write a complete structured export of the local database | `/export` |
+| Add a field or change a rule | `/customise` |
+| Add a read-only report | `/new-view` |
 
-If an ask fits nothing here, run the CLI directly (`npm run <cli> -- --help`) and then propose a new command for it.
+## Working rules
 
-## Hard rules
+- Read docs/cli.md before a write and docs/replace-qminder.md before an import.
+- Every write needs the operator's actor label. It records a statement, not authenticated identity.
+- Never send, text, publish, take a payment, delete a record or call an external system. A call action only records an in-person call.
+- Ambiguous names list the candidates and exit. Ask which record the operator means.
+- Drafts go to drafts/. Reports go to views/ and docs-out/. These files are private working records.
+- Use the CLI for every data operation. DATABASE_URL selects PostgreSQL; otherwise DATA_DIR selects PGlite. Never seed a real database. The demo and tests isolate their data.
+- An imported ticket is archived history. Never place it in today's queue without a new, operator-confirmed arrival.
+- Evidence checks support a person's review. No automatic deletion, clinical decisions, legal certification or promises about waiting time.
+- Changes to fields and rules use a new numbered migration, a disposable-data test and the existing CLI. Keep CLAUDE.md and AGENTS.md together.
 
-- Never send email or messages from here. Draft to `drafts/`, a person sends.
-- Never delete records without an explicit yes in this session. Prefer marking closed or archived.
-- Never invent a record. If a name is ambiguous, list the candidates and ask.
-- The database is the source of truth. If the answer is not in it, say so.
-
-## Where things live
-
-- `scripts/` the CLI. `scripts/lib/db.mjs` picks `DATABASE_URL` (Postgres, Supabase) or the embedded database in `.data/`.
-- `supabase/migrations/` the schema, plain SQL. `npm run migrate` applies it.
-- `.claude/commands/` the slash commands. Add one every time the same ask comes twice.
-- `docs/` the thesis and the guide for moving off Qminder.
-
-Built by Enterprise DNA. Installed and run for you as part of Omni: https://enterprisedna.co/omni/instead-of/qminder
+Omni by Enterprise DNA can install and run a custom version: https://enterprisedna.co/omni/book?offer=replace-software&utm_campaign=qminder&utm_medium=github

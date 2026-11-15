@@ -1,0 +1,23 @@
+Waits needing attention
+npm run queue -- wait-review
+token  location                service            reason               minutes
+  -----  ----------------------  -----------------  -------------------  -------
+  H-107  Harbour Service Centre  Permit enquiries   WAIT_TARGET          1455.1 
+  H-107  Harbour Service Centre  Permit enquiries   PREVIOUS_DAY_OPEN    1455.1 
+  H-103  Harbour Service Centre  General enquiries  CALL_OPEN_OVER_HOUR  81.1   
+  H-101  Harbour Service Centre  General enquiries  WAIT_TARGET          37.1   
+  R-201  Ridge Service Centre    General enquiries  WAIT_TARGET          22.1
+
+Clerk activity
+npm run queue -- clerk-review
+location                clerk       imported  served  calls_open  mean_served_minutes
+  ----------------------  ----------  --------  ------  ----------  -------------------
+  Harbour Service Centre  Leo Chen    false     1       0           15.0               
+  Harbour Service Centre  Maya Patel  false     0       1
+
+Privacy review
+npm run queue -- compliance
+token  rule                finding                                     
+  -----  ------------------  --------------------------------------------
+  H-106  COLLECTION_PURPOSE  Record a necessary collection purpose       
+  H-106  RETENTION_REVIEW    Review the lawful need to retain this record

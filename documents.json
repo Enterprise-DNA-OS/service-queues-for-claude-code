@@ -1,11 +1,50 @@
 [
   {
-    "name": "example",
-    "title": "TODO(author): the first document this industry must produce",
-    "for_each": "select gen_random_uuid() as id, 'Example' as name",
+    "name": "daily-service-report",
+    "title": "Daily service report",
+    "for_each": "select id,name from locations order by name",
     "file": "name",
     "sections": [
-      { "title": "Details", "sql": "select 'replace me' as item, $1::text as record_id" }
+      {
+        "title": "Service results",
+        "sql": "select d.service_date,d.service,d.imported,d.served,d.no_shows,d.removed,d.handovers from daily_performance d join locations l on l.name=d.location where l.id=$1 order by service_date desc,service",
+        "note": "Dates are UTC. Archived imports are identified separately."
+      },
+      {
+        "title": "Wait and service durations",
+        "sql": "select d.service_date,d.service,d.imported,d.mean_wait_minutes,d.mean_service_minutes,d.over_target from daily_performance d join locations l on l.name=d.location where l.id=$1 order by service_date desc,service",
+        "note": "Means use observed call times and completed interactions. A blank duration is unknown."
+      },
+      {
+        "title": "Desk follow-ups",
+        "sql": "select a.* from attention a join locations l on l.name=a.location where l.id=$1 order by minutes desc"
+      }
+    ]
+  },
+  {
+    "name": "visit-record",
+    "title": "Service interaction record",
+    "for_each": "select id,token from visits order by token",
+    "file": "token",
+    "sections": [
+      {
+        "title": "Record purpose",
+        "layout": "record",
+        "sql": "select token,purpose,retention_review_on,imported from visits where id=$1"
+      },
+      {
+        "title": "Service history",
+        "sql": "select sequence,location,service,clerk,status from ticket_summary where visit_id=$1 order by sequence"
+      },
+      {
+        "title": "Interaction times (UTC)",
+        "sql": "select sequence,queued_at,called_at,ended_at from ticket_summary where visit_id=$1 order by sequence"
+      },
+      {
+        "title": "Recorded actions",
+        "sql": "select e.created_at,e.action,e.actor,e.note from audit_events e join interactions i on i.id=e.interaction_id where i.visit_id=$1 order by e.created_at",
+        "note": "Internal working record. Actor names are supplied by the operator, not authenticated identities."
+      }
     ]
   }
 ]
